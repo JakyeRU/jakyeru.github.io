@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 
 let stars = [], // Array that contains the stars
     FPS = 60, // Frames per second
-    x = 100, // Number of stars
+    x = ((canvas.width + canvas.height) / 2) / 12, // Number of stars
     mouse = {
         x: 0,
         y: 0
