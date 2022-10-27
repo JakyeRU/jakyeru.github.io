@@ -259,18 +259,12 @@
      */
 
     setInterval(function () {
-        const today = new Date();
-        const year_start = new Date(today.getFullYear(), 0, 1, 0, 0, 0, 0);
-        const birthday = new Date(2003, 9, 11, 0, 0, 0, 0);
+        const today = luxon.DateTime.now();
+        const birthday = luxon.DateTime.fromISO('2003-09-11');
 
-        const age = Math.floor((today - birthday) / (1000 * 60 * 60 * 24 * 365));
-        const months_age = Math.floor((today.getMonth() - year_start.getMonth()))
-        const days_age = Math.floor((today.getDate() - year_start.getDate()))
-        const hours_age = Math.floor((today.getHours() - year_start.getHours()))
-        const minutes_age = Math.floor((today.getMinutes() - year_start.getMinutes()))
-        const seconds_age = Math.floor((today.getSeconds() - year_start.getSeconds()))
+        const age = today.diff(birthday, ['years', 'months', 'days', 'hours', 'minutes', 'seconds']).toObject();
 
-        select('#age').innerHTML = `${age} years, ${months_age + 1} months, ${days_age + 1} days, ${hours_age} hours, ${minutes_age} minutes, ${seconds_age} seconds`
+        select('#age').innerHTML = `${Math.floor(age.years)} years, ${Math.floor(age.months)} month${Math.floor(age.months) === 1 ? '' : 's'}, ${Math.floor(age.days)} day${Math.floor(age.days) === 1 ? '' : 's'}, ${Math.floor(age.hours)} hour${Math.floor(age.hours) === 1 ? '' : 's'}, ${Math.floor(age.minutes)} minute${Math.floor(age.minutes) === 1 ? '' : 's'},  ${Math.floor(age.seconds)} second${Math.floor(age.seconds) === 1 ? '' : 's'}`
     }, 1000);
 
 })()
